@@ -1,6 +1,7 @@
 package com.ssafy.demospringdata;
 
 import org.hibernate.Session;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.ApplicationArguments;
 import org.springframework.boot.ApplicationRunner;
 import org.springframework.stereotype.Component;
@@ -19,11 +20,21 @@ import java.util.List;
 @Transactional
 public class JpaRunner implements ApplicationRunner {
 
-    @PersistenceContext
-    EntityManager entityManager;
+    @Autowired
+    PostRepository postRepository;
 
     @Override
     public void run(ApplicationArguments args) throws Exception {
+        Post post = new Post();
+        post.setTitle("Spring Data JPA");
+
+        Comment comment = new Comment();
+        comment.setComment("hello");
+        postRepository.save(post);
+    }
+
+//    @Override
+//    public void run(ApplicationArguments args) throws Exception {
         /**
          * 쿼리(JPQL)
          */
@@ -105,5 +116,5 @@ public class JpaRunner implements ApplicationRunner {
             or
             entityManager.persist(account);
          */
-    }
+//    }
 }
